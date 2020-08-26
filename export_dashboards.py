@@ -7,6 +7,7 @@ import string
 import subprocess
 import sys
 import tempfile
+import json
 
 parser = argparse.ArgumentParser(description='Export a SignalFx asset as Terraform')
 parser.add_argument('--key', dest='key', required=True, help='An API key for accessing SignalFx')
@@ -14,6 +15,7 @@ parser.add_argument('--api_url', dest='api_url', help='The API URL, used for non
 parser.add_argument('--name', dest='name', required=True, help='The name of the resource after export, e.g. mychart0')
 parser.add_argument('--exclude', dest='excludes', nargs='*', help='A field to exclude from the emitted HCL', default=['id', 'url', 'tags'])
 parser.add_argument('--output', dest='output', required=True, help='The name of the directory to which output will be written')
+parser.add_argument('--detector_json', dest='detector_json', required=True)
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('--group', dest='group', help='The ID of the dashboard group in SignalFx')
 group.add_argument('--dashboard', dest='dash', help='The ID of the dashboard in SignalFx')
@@ -98,8 +100,8 @@ def replace_chart_ids(hcl, charts):
     return hcl
 
 def handle_detector(sfx, id, name, args):
-    det = sfx.get_detector(id)
-
+    #det = sfx.get_detector(id)
+    det = json.loads(detector_json)
     return handle_asset(args['key'], args['api_url'], "signalfx_detector", name, id)
 
 def handle_datalink(sfx, props, name, args):
