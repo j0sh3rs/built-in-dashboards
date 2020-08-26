@@ -1,1 +1,1 @@
-signalfx >= 1.1.7
+signalfx git+https://github.com/j0sh3rs/signalfx-python.git
