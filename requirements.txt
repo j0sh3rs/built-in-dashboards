@@ -1,1 +1,1 @@
-signalfx git+https://github.com/j0sh3rs/signalfx-python.git
+git+https://github.com/j0sh3rs/signalfx-python@master#egg=signalfx
